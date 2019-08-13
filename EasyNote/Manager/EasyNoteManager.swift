@@ -5,13 +5,15 @@ import CoreData
 class EasyNoteManager {
     
     static let shared = EasyNoteManager()
-    static var groudListCoreData :[GroupList] = []
+    static var groudListCoreData = [GroupList]()
+    
+    static let moc = CoreDataHelper.shared.managedObjectContext()
     
     /*------------------------------------------------------------ Functions. ------------------------------------------------------------*/
     
     //MARK: func - Save CoreData.
     func saveCoreData() {
-        CoreDataHelper
+        CoreDataHelper.shared.saveContext()
     }
     
     //MARK: func - Query COreData.

@@ -1,0 +1,6 @@
+framework module Pods_EasyNote {
+  umbrella header "Pods-EasyNote-umbrella.h"
+
+  export *
+  module * { export * }
+}

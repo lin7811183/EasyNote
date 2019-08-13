@@ -7,21 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE1EE7D62301B64500A7BAF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7D52301B64500A7BAF3 /* AppDelegate.swift */; };
-		CE1EE7D82301B64500A7BAF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7D72301B64500A7BAF3 /* ViewController.swift */; };
-		CE1EE7DB2301B64500A7BAF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7D92301B64500A7BAF3 /* Main.storyboard */; };
-		CE1EE7DD2301B64600A7BAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7DC2301B64600A7BAF3 /* Assets.xcassets */; };
+		AF8BCB0E7A00D8D72050758C /* Pods_EasyNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C10D9C927E30A825CBD5C2 /* Pods_EasyNote.framework */; };
 		CE1EE7E02301B64600A7BAF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7DE2301B64600A7BAF3 /* LaunchScreen.storyboard */; };
+		CE1EE7EA2301B70000A7BAF3 /* GroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7E92301B70000A7BAF3 /* GroupList.swift */; };
+		CE1EE7ED2301B72700A7BAF3 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7EC2301B72700A7BAF3 /* CoreDataHelper.swift */; };
+		CE1EE7F02301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7EE2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld */; };
+		CE1EE7F42301B7AC00A7BAF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7F12301B7AC00A7BAF3 /* AppDelegate.swift */; };
+		CE1EE7F52301B7AC00A7BAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7F22301B7AC00A7BAF3 /* Assets.xcassets */; };
+		CE1EE7F62301B7AC00A7BAF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7F32301B7AC00A7BAF3 /* Main.storyboard */; };
+		CE1EE7F92301B7B800A7BAF3 /* EasyNoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7F82301B7B800A7BAF3 /* EasyNoteManager.swift */; };
+		CE1EE7FC2301B7C100A7BAF3 /* EasyNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7FB2301B7C100A7BAF3 /* EasyNoteViewController.swift */; };
+		CE1EE7FE2301B7D000A7BAF3 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7FD2301B7D000A7BAF3 /* GroupListViewController.swift */; };
+		CE1EE8012301B7D700A7BAF3 /* GroupListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE8002301B7D700A7BAF3 /* GroupListTableViewCell.swift */; };
+		CE1EE8062301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE8042301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift */; };
+		CE1EE8072301B7E700A7BAF3 /* AddNewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE8052301B7E700A7BAF3 /* AddNewGroupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyNote.release.xcconfig"; path = "Target Support Files/Pods-EasyNote/Pods-EasyNote.release.xcconfig"; sourceTree = "<group>"; };
 		CE1EE7D22301B64500A7BAF3 /* EasyNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE1EE7D52301B64500A7BAF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE1EE7D72301B64500A7BAF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CE1EE7DA2301B64500A7BAF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CE1EE7DC2301B64600A7BAF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1EE7DF2301B64600A7BAF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE1EE7E12301B64600A7BAF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE1EE7E92301B70000A7BAF3 /* GroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupList.swift; sourceTree = "<group>"; };
+		CE1EE7EC2301B72700A7BAF3 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		CE1EE7EF2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyNoteModel.xcdatamodel; sourceTree = "<group>"; };
+		CE1EE7F12301B7AC00A7BAF3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CE1EE7F22301B7AC00A7BAF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE1EE7F32301B7AC00A7BAF3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		CE1EE7F82301B7B800A7BAF3 /* EasyNoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyNoteManager.swift; sourceTree = "<group>"; };
+		CE1EE7FB2301B7C100A7BAF3 /* EasyNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyNoteViewController.swift; sourceTree = "<group>"; };
+		CE1EE7FD2301B7D000A7BAF3 /* GroupListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupListViewController.swift; sourceTree = "<group>"; };
+		CE1EE8002301B7D700A7BAF3 /* GroupListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupListTableViewCell.swift; sourceTree = "<group>"; };
+		CE1EE8042301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE1EE8052301B7E700A7BAF3 /* AddNewGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewGroupViewController.swift; sourceTree = "<group>"; };
+		D2C2D6877A142D043B0E96F9 /* Pods-EasyNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyNote.debug.xcconfig"; path = "Target Support Files/Pods-EasyNote/Pods-EasyNote.debug.xcconfig"; sourceTree = "<group>"; };
+		F1C10D9C927E30A825CBD5C2 /* Pods_EasyNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8BCB0E7A00D8D72050758C /* Pods_EasyNote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		418D9CEDCF3E8FE63D7717BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1C10D9C927E30A825CBD5C2 /* Pods_EasyNote.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6240C51A7EA9C47B88FB5697 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D2C2D6877A142D043B0E96F9 /* Pods-EasyNote.debug.xcconfig */,
+				06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CE1EE7C92301B64500A7BAF3 = {
 			isa = PBXGroup;
 			children = (
 				CE1EE7D42301B64500A7BAF3 /* EasyNote */,
 				CE1EE7D32301B64500A7BAF3 /* Products */,
+				6240C51A7EA9C47B88FB5697 /* Pods */,
+				418D9CEDCF3E8FE63D7717BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +94,86 @@
 		CE1EE7D42301B64500A7BAF3 /* EasyNote */ = {
 			isa = PBXGroup;
 			children = (
-				CE1EE7D52301B64500A7BAF3 /* AppDelegate.swift */,
-				CE1EE7D72301B64500A7BAF3 /* ViewController.swift */,
-				CE1EE7D92301B64500A7BAF3 /* Main.storyboard */,
-				CE1EE7DC2301B64600A7BAF3 /* Assets.xcassets */,
+				CE1EE7F32301B7AC00A7BAF3 /* Main.storyboard */,
+				CE1EE7F12301B7AC00A7BAF3 /* AppDelegate.swift */,
+				CE1EE7F22301B7AC00A7BAF3 /* Assets.xcassets */,
+				CE1EE7F72301B7B800A7BAF3 /* Manager */,
+				CE1EE7EB2301B71400A7BAF3 /* Core-Data */,
+				CE1EE7FA2301B7C100A7BAF3 /* Easy-Note */,
+				CE1EE7E72301B6E400A7BAF3 /* Group-List */,
+				CE1EE8022301B7E700A7BAF3 /* Add-New-Group */,
 				CE1EE7DE2301B64600A7BAF3 /* LaunchScreen.storyboard */,
 				CE1EE7E12301B64600A7BAF3 /* Info.plist */,
 			);
 			path = EasyNote;
+			sourceTree = "<group>";
+		};
+		CE1EE7E72301B6E400A7BAF3 /* Group-List */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE7FD2301B7D000A7BAF3 /* GroupListViewController.swift */,
+				CE1EE7E82301B6F200A7BAF3 /* Object */,
+				CE1EE7FF2301B7D700A7BAF3 /* Custom-Cell */,
+			);
+			path = "Group-List";
+			sourceTree = "<group>";
+		};
+		CE1EE7E82301B6F200A7BAF3 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE7E92301B70000A7BAF3 /* GroupList.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		CE1EE7EB2301B71400A7BAF3 /* Core-Data */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE7EC2301B72700A7BAF3 /* CoreDataHelper.swift */,
+				CE1EE7EE2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld */,
+			);
+			path = "Core-Data";
+			sourceTree = "<group>";
+		};
+		CE1EE7F72301B7B800A7BAF3 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE7F82301B7B800A7BAF3 /* EasyNoteManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		CE1EE7FA2301B7C100A7BAF3 /* Easy-Note */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE7FB2301B7C100A7BAF3 /* EasyNoteViewController.swift */,
+			);
+			path = "Easy-Note";
+			sourceTree = "<group>";
+		};
+		CE1EE7FF2301B7D700A7BAF3 /* Custom-Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE8002301B7D700A7BAF3 /* GroupListTableViewCell.swift */,
+			);
+			path = "Custom-Cell";
+			sourceTree = "<group>";
+		};
+		CE1EE8022301B7E700A7BAF3 /* Add-New-Group */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE8052301B7E700A7BAF3 /* AddNewGroupViewController.swift */,
+				CE1EE8032301B7E700A7BAF3 /* Custom-Cell */,
+			);
+			path = "Add-New-Group";
+			sourceTree = "<group>";
+		};
+		CE1EE8032301B7E700A7BAF3 /* Custom-Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE1EE8042301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift */,
+			);
+			path = "Custom-Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +183,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE1EE7E42301B64600A7BAF3 /* Build configuration list for PBXNativeTarget "EasyNote" */;
 			buildPhases = (
+				C12C524394B17E508393FF86 /* [CP] Check Pods Manifest.lock */,
 				CE1EE7CE2301B64500A7BAF3 /* Sources */,
 				CE1EE7CF2301B64500A7BAF3 /* Frameworks */,
 				CE1EE7D02301B64500A7BAF3 /* Resources */,
+				C6F849486ECAC34DC6A2C245 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -122,35 +236,82 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1EE7F62301B7AC00A7BAF3 /* Main.storyboard in Resources */,
+				CE1EE7F52301B7AC00A7BAF3 /* Assets.xcassets in Resources */,
 				CE1EE7E02301B64600A7BAF3 /* LaunchScreen.storyboard in Resources */,
-				CE1EE7DD2301B64600A7BAF3 /* Assets.xcassets in Resources */,
-				CE1EE7DB2301B64500A7BAF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C12C524394B17E508393FF86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EasyNote-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6F849486ECAC34DC6A2C245 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EasyNote/Pods-EasyNote-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EasyNote/Pods-EasyNote-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE1EE7CE2301B64500A7BAF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE1EE7D82301B64500A7BAF3 /* ViewController.swift in Sources */,
-				CE1EE7D62301B64500A7BAF3 /* AppDelegate.swift in Sources */,
+				CE1EE7F42301B7AC00A7BAF3 /* AppDelegate.swift in Sources */,
+				CE1EE7FE2301B7D000A7BAF3 /* GroupListViewController.swift in Sources */,
+				CE1EE7EA2301B70000A7BAF3 /* GroupList.swift in Sources */,
+				CE1EE8012301B7D700A7BAF3 /* GroupListTableViewCell.swift in Sources */,
+				CE1EE7FC2301B7C100A7BAF3 /* EasyNoteViewController.swift in Sources */,
+				CE1EE7ED2301B72700A7BAF3 /* CoreDataHelper.swift in Sources */,
+				CE1EE7F02301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld in Sources */,
+				CE1EE8062301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift in Sources */,
+				CE1EE7F92301B7B800A7BAF3 /* EasyNoteManager.swift in Sources */,
+				CE1EE8072301B7E700A7BAF3 /* AddNewGroupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CE1EE7D92301B64500A7BAF3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE1EE7DA2301B64500A7BAF3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CE1EE7DE2301B64600A7BAF3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -280,6 +441,7 @@
 		};
 		CE1EE7E52301B64600A7BAF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2C2D6877A142D043B0E96F9 /* Pods-EasyNote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +460,7 @@
 		};
 		CE1EE7E62301B64600A7BAF3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -336,6 +499,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CE1EE7EE2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE1EE7EF2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodel */,
+			);
+			currentVersion = CE1EE7EF2301B73F00A7BAF3 /* EasyNoteModel.xcdatamodel */;
+			path = EasyNoteModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE1EE7CA2301B64500A7BAF3 /* Project object */;
 }

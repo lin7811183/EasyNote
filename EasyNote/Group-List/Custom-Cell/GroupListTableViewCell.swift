@@ -5,6 +5,9 @@ class GroupListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var groupColorView: UIView!
     @IBOutlet weak var groupNameLB: UILabel!
+    @IBOutlet weak var isSelectImage: UIImageView!
+    
+    var isSelect :Bool!
     
     override func awakeFromNib() {
         super.awakeFromNib()

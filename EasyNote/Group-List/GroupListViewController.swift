@@ -5,21 +5,23 @@ class GroupListViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        EasyNoteManager.shared.queryCoreData()
+        
         // 檢查是不是第一次使用APP，若是產生預設 ; 若不是撈取CoreData資料
         guard EasyNoteManager.groudListCoreData.count != 0 else {
-            print("第一次使用 Easy-Note APP.")
-            let defaultGroupList = GroupList()
+            print("第一次使用 Easy Note APP.")
+            let defaultGroupList = GroupList(context: EasyNoteManager.moc)
             defaultGroupList.groupID = UUID().uuidString
             defaultGroupList.groupColor = "Note-Group-Default"
             defaultGroupList.groupName = "請輸入群組名稱...."
-            
+            defaultGroupList.isSelect = false
+
             EasyNoteManager.groudListCoreData.append(defaultGroupList)
             EasyNoteManager.shared.saveCoreData()
-            
+
             return
         }
-        print("非第一次使用 Easy-Note APP.")
-        EasyNoteManager.shared.queryCoreData()
+        print("非第一次使用 Easy Note APP.")
         
     }
 
@@ -79,15 +81,17 @@ extension GroupListViewController :UITableViewDataSource {
     //MARK: Protocol - cellForRowAt.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let groupListCell = self.groupListTV.dequeueReusableCell(withIdentifier: "GroupListCell", for: indexPath) as! GroupListTableViewCell
-        
-        //groupListCell.groupColorView.backgroundColor = UIColor(named: self.groupListArray[indexPath.row].groupColor!)
+        // 設定 groupColorView. ayer
         groupListCell.groupColorView.layer.borderWidth = 100000.0
         groupListCell.groupColorView.layer.borderColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
-        groupListCell.groupColorView.layer.backgroundColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
-        
-        groupListCell.groupColorView.alpha = 100
-        
+        // 設定 groupNameLB text
         groupListCell.groupNameLB.text = EasyNoteManager.groudListCoreData[indexPath.row].groupName!
+        
+        if EasyNoteManager.groudListCoreData[indexPath.row].isSelect == false {
+            groupListCell.isSelectImage.image = UIImage(named: "")
+        } else {
+            groupListCell.isSelectImage.image = UIImage(named: "Group-List-Select-Icon")
+        }
         
         return groupListCell
     }
@@ -98,9 +102,51 @@ extension GroupListViewController :UITableViewDelegate {
     
     //MARK: Protocol - didSelectRowAt.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 點選後，取消反灰.
         self.groupListTV.deselectRow(at: indexPath, animated: true)
+        // 點選後，看是否被選取.
+        let selectGroupListCell = tableView.cellForRow(at: indexPath) as! GroupListTableViewCell
+        let isSelect = EasyNoteManager.groudListCoreData[indexPath.row].isSelect
+        if isSelect == false {
+            selectGroupListCell.isSelectImage.image = UIImage(named: "Group-List-Select-Icon")
+            selectGroupListCell.isSelect = true
+            
+            EasyNoteManager.groudListCoreData[indexPath.row].isSelect = true
+            EasyNoteManager.shared.saveCoreData()
+        } else {
+            selectGroupListCell.isSelectImage.image = UIImage(named: "")
+            selectGroupListCell.isSelect = false
+            
+            EasyNoteManager.groudListCoreData[indexPath.row].isSelect = false
+            EasyNoteManager.shared.saveCoreData()
+        }
+        
     }
     
+    //MARK: Protocol - editActionsForRowAt.
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        // 修改 Group List 名稱.
+        let changeGroupListNameAction = UITableViewRowAction(style: .default, title: "改名稱") { (action, indexPath) in
+        }
+        changeGroupListNameAction.backgroundColor = UIColor.lightGray
+        
+        // 刪除 Group List.
+        let deleteGroupListAction = UITableViewRowAction(style: .default, title: "刪除") { (action, indexPath) in
+            // 刪除 Group List 元素.
+            let deleteData = EasyNoteManager.groudListCoreData[indexPath.row]
+            EasyNoteManager.groudListCoreData.remove(at: indexPath.row)
+            // 刪除 Group List TablView.
+            self.groupListTV.deleteRows(at: [indexPath], with: .automatic)
+            self.groupListTV.reloadData()
+            // Core Data save.
+            EasyNoteManager.moc.delete(deleteData)
+            EasyNoteManager.shared.saveCoreData()
+        }
+        deleteGroupListAction.backgroundColor = UIColor.red
+        
+        return [ deleteGroupListAction, changeGroupListNameAction ]
+    }
 }
 
 /*-------------------------------------------------- AddNewGroupViewControllerDelegate --------------------------------------------------*/
@@ -109,10 +155,11 @@ extension GroupListViewController :AddNewGroupViewControllerDelegate {
     //MARK: Protocol - addNewGroupList (通知新增 Group List)
     func addNewGroupList(groupName: String, groupColor: String) {
         // 新增一筆新的 Group list.
-        let newGroupList = GroupList()
+        let newGroupList = GroupList(context: EasyNoteManager.moc)
         newGroupList.groupID = UUID().uuidString
         newGroupList.groupColor = groupColor
         newGroupList.groupName = groupName
+        newGroupList.isSelect = false
         
         EasyNoteManager.groudListCoreData.append(newGroupList)
         
