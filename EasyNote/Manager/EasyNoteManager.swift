@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 import CoreData
 
+protocol EasyNoteManagerGroupListDelegate {
+    func updateGroupListName(groupListName :String)
+}
+
 class EasyNoteManager {
     
     static let shared = EasyNoteManager()
@@ -9,7 +13,9 @@ class EasyNoteManager {
     
     static let moc = CoreDataHelper.shared.managedObjectContext()
     
-    /*------------------------------------------------------------ Functions. ------------------------------------------------------------*/
+    static var GroupListDelegate :EasyNoteManagerGroupListDelegate!
+    
+    /*-------------------------------------------------- Function --------------------------------------------------*/
     
     //MARK: func - Save CoreData.
     func saveCoreData() {
@@ -33,10 +39,25 @@ class EasyNoteManager {
     }
     
     //MARK: func - UIAlert.
-    func okAlter(vc: UIViewController, title: String, message: String) {
-        let alter = UIAlertController(title: title, message: message,preferredStyle: .alert)
+    func okAlert(vc: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message,preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
-        alter.addAction(okAction)
-        vc.present(alter, animated: true, completion: nil)
+        alert.addAction(okAction)
+        vc.present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: func - 輸入對話框 Alter.
+    func textAlter(vc: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addTextField { (textfield) in
+        }
+        let okAction = UIAlertAction(title: "確認", style: .default) { (action) in
+            if let newGroupListName = alert.textFields?[0] {
+                EasyNoteManager.GroupListDelegate.updateGroupListName(groupListName: newGroupListName.text!)
+            }
+        }
+        okAction.setValue(UIColor.black, forKey: "titleTextColor")
+        alert.addAction(okAction)
+        vc.present(alert, animated: true, completion: nil)
     }
 }

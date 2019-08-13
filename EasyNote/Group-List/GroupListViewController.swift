@@ -31,6 +31,7 @@ class GroupListViewController: UIViewController {
     @IBOutlet weak var groupListTV: UITableView!
     
     var isAddNewGroup :Bool = false
+    var changeGroupListNameIndexPath :IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +71,7 @@ class GroupListViewController: UIViewController {
     }
 }
 
-/*-------------------------------------------------- UITableViewDataSource --------------------------------------------------*/
+/*----------------------------------- UITableViewDataSource -----------------------------------*/
 extension GroupListViewController :UITableViewDataSource {
     
     //MARK: Protocol - numberOfRowsInSection section.
@@ -97,7 +98,7 @@ extension GroupListViewController :UITableViewDataSource {
     }
 }
 
-/*-------------------------------------------------- UITableViewDelegate --------------------------------------------------*/
+/*----------------------------------- UITableViewDelegate -----------------------------------*/
 extension GroupListViewController :UITableViewDelegate {
     
     //MARK: Protocol - didSelectRowAt.
@@ -128,6 +129,9 @@ extension GroupListViewController :UITableViewDelegate {
         
         // 修改 Group List 名稱.
         let changeGroupListNameAction = UITableViewRowAction(style: .default, title: "改名稱") { (action, indexPath) in
+            self.changeGroupListNameIndexPath = indexPath
+            EasyNoteManager.shared.textAlter(vc: self, title: "請輸入新的群組名稱", message: "")
+            EasyNoteManager.GroupListDelegate = self
         }
         changeGroupListNameAction.backgroundColor = UIColor.lightGray
         
@@ -149,7 +153,7 @@ extension GroupListViewController :UITableViewDelegate {
     }
 }
 
-/*-------------------------------------------------- AddNewGroupViewControllerDelegate --------------------------------------------------*/
+/*----------------------------------- AddNewGroupViewControllerDelegate -----------------------------------*/
 extension GroupListViewController :AddNewGroupViewControllerDelegate {
     
     //MARK: Protocol - addNewGroupList (通知新增 Group List)
@@ -169,5 +173,23 @@ extension GroupListViewController :AddNewGroupViewControllerDelegate {
         
         self.groupListSC.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         self.isAddNewGroup = false
+    }
+}
+
+/*----------------------------------- EasyNoteManagerGroupListDelegate -----------------------------------*/
+extension GroupListViewController :EasyNoteManagerGroupListDelegate {
+    //MARK: Protocol - 更新新群組名稱 Delegate.
+    func updateGroupListName(groupListName: String) {
+        guard let indexPath = self.changeGroupListNameIndexPath else {
+            print("changeGroupListNameIndexPath Error.")
+            return
+        }
+        // 更新 cell Data.
+        let changeCell = self.groupListTV.cellForRow(at: indexPath) as! GroupListTableViewCell
+        changeCell.groupNameLB.text = groupListName
+        self.groupListTV.rectForRow(at: indexPath)
+        // 更新 groudList CoreData Array Data.
+        EasyNoteManager.groudListCoreData[indexPath.row].groupName = groupListName
+        EasyNoteManager.shared.saveCoreData()
     }
 }

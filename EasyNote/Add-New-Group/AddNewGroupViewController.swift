@@ -31,9 +31,9 @@ class AddNewGroupViewController: UIViewController {
     //MARK: func - Add New Group List.
     @IBAction func addNewGroupList(_ sender: UIButton) {
         if self.oldUseCellColorIndexRow == nil{
-            EasyNoteManager.shared.okAlter(vc: self, title: "新增便貼群組異常", message: "請檢查是否有選取群組顏色")
+            EasyNoteManager.shared.okAlert(vc: self, title: "新增便貼群組異常", message: "請檢查是否有選取群組顏色")
         } else if self.groupListNameTF.text == ""  {
-            EasyNoteManager.shared.okAlter(vc: self, title: "新增便貼群組異常", message: "請檢查是否有輸入群組名稱")
+            EasyNoteManager.shared.okAlert(vc: self, title: "新增便貼群組異常", message: "請檢查是否有輸入群組名稱")
         } else {
             self.useGroupName = self.groupListNameTF.text!
             self.delegate.addNewGroupList(groupName: self.useGroupName, groupColor: self.useGroupColor)
