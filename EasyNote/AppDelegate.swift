@@ -1,12 +1,5 @@
-//
-//  AppDelegate.swift
-//  EasyNote
-//
-//  Created by 林易興 on 2019/8/12.
-//  Copyright © 2019 林易興. All rights reserved.
-//
-
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +9,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Easy-Note App Home
+        print("Easy-Note App Home : \(NSHomeDirectory())")
+        
+        // IQKeyboardManager.
+        IQKeyboardManager.shared.enable = true
+        
         return true
     }
 
