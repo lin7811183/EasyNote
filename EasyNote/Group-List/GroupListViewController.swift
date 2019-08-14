@@ -57,7 +57,7 @@ class GroupListViewController: UIViewController {
             self.groupListSC.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             self.isAddNewGroup = false
             UIView.animate(withDuration: 1.0, animations: {
-                self.addNewGroupBT.transform =  CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+                self.addNewGroupBT.transform =  CGAffineTransform(rotationAngle: -(CGFloat.pi / 2) )
             })
         }
     }
@@ -82,7 +82,7 @@ extension GroupListViewController :UITableViewDataSource {
     //MARK: Protocol - cellForRowAt.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let groupListCell = self.groupListTV.dequeueReusableCell(withIdentifier: "GroupListCell", for: indexPath) as! GroupListTableViewCell
-        // 設定 groupColorView. ayer
+        // 設定 groupColorView layer.
         groupListCell.groupColorView.layer.borderWidth = 100000.0
         groupListCell.groupColorView.layer.borderColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
         // 設定 groupNameLB text
@@ -191,5 +191,9 @@ extension GroupListViewController :EasyNoteManagerGroupListDelegate {
         // 更新 groudList CoreData Array Data.
         EasyNoteManager.groudListCoreData[indexPath.row].groupName = groupListName
         EasyNoteManager.shared.saveCoreData()
+        // 新增按鈕動畫.
+        UIView.animate(withDuration: 1.0, animations: {
+            self.addNewGroupBT.transform =  CGAffineTransform(rotationAngle: -(CGFloat.pi / 2) )
+        })
     }
 }

@@ -4,6 +4,7 @@ class EasyNoteViewController: UIViewController {
     
     @IBOutlet weak var easyNoteSV: UIScrollView!
     @IBOutlet weak var groupListBT: UIBarButtonItem!
+    @IBOutlet weak var noteCV: UICollectionView!
     
     var isOpenGroupList :Bool = false
     
@@ -22,5 +23,11 @@ class EasyNoteViewController: UIViewController {
             self.groupListBT.tintColor = UIColor.black
             self.isOpenGroupList = false
         }
+    }
+    
+    //MARK: func - add New Note.
+    @IBAction func addNewNote(_ sender: UIBarButtonItem) {
+        let addNewNoteVC = self.storyboard?.instantiateViewController(withIdentifier: "AddNewNoteVC") as! AddNewNoteViewController
+        self.present(addNewNoteVC, animated: true, completion: nil)
     }
 }
