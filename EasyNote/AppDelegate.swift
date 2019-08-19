@@ -14,7 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Easy-Note App Home : \(NSHomeDirectory())")
         
         // IQKeyboardManager.
-        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enable = true // 開啟IQKeyboard.
+        IQKeyboardManager.shared.overrideKeyboardAppearance = true
+        IQKeyboardManager.shared.keyboardAppearance = .dark // 調整IQKeyboard 顏色.
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true // 點擊額外view收起IQKeyboard.
+        IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "完成"
         
         return true
     }

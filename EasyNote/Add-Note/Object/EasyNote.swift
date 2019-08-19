@@ -1,9 +1,10 @@
-//
-//  EasyNote.swift
-//  EasyNote
-//
-//  Created by 林易興 on 2019/8/14.
-//  Copyright © 2019 林易興. All rights reserved.
-//
-
 import Foundation
+import CoreData
+
+class EasyNote: NSManagedObject {
+    
+    @NSManaged var groupID :String?
+    @NSManaged var groupColor :String?
+    @NSManaged var noteDate :String?
+    @NSManaged var noteText :String?
+}

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="EasyNote" representedClassName=".EasyNote" syncable="YES">
+        <attribute name="groupColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteText" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="GroupList" representedClassName=".GroupList" syncable="YES">
         <attribute name="groupColor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,5 +14,6 @@
     </entity>
     <elements>
         <element name="GroupList" positionX="-27" positionY="18" width="128" height="105"/>
+        <element name="EasyNote" positionX="-27" positionY="54" width="128" height="30"/>
     </elements>
 </model>

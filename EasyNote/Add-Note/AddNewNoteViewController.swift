@@ -1,5 +1,9 @@
 import UIKit
 
+protocol AddNewNoteViewControllerDelegate {
+    func addEasyNote()
+}
+
 class AddNewNoteViewController: UIViewController {
 
     @IBOutlet weak var groupListCV: UICollectionView!
@@ -8,6 +12,11 @@ class AddNewNoteViewController: UIViewController {
     @IBOutlet weak var groupListColorView: UIView!
     
     var oldColorIndexPath :IndexPath!
+    
+    var newEasyNoteGroupID :String!
+    var newEasyNoteGroupColor :String!
+    
+    var delegate :AddNewNoteViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +36,46 @@ class AddNewNoteViewController: UIViewController {
         // groupListCV delegate.
         self.groupListCV.dataSource = self
         self.groupListCV.delegate = self
+        
+        // NoteTF delegate.
+        self.NoteTF.delegate = self
     }
     
     //MARK: func - 確定新增 Note.
     @IBAction func ok(_ sender: Any) {
+        let newEasyNote = EasyNote(context: EasyNoteManager.moc)
         
+        if let groupID =  self.newEasyNoteGroupID {
+            newEasyNote.groupID = groupID
+        } else {
+            newEasyNote.groupID = "Not-Group"
+        }
+        
+        if let groupColor =  self.newEasyNoteGroupColor {
+            newEasyNote.groupColor = groupColor
+        } else {
+            newEasyNote.groupColor = "Note-Group-Default"
+        }
+
+        
+        let creatDate = Date()
+        let dateFormat :DateFormatter = DateFormatter()
+        dateFormat.locale = Locale(identifier: "zh_Hant_TW") // 設定地區(台灣)
+        dateFormat.timeZone = TimeZone(identifier: "Asia/Taipei") // 設定時區(台灣)
+        dateFormat.dateFormat = "yyyy-MM-dd HH:mm"
+        let nowdate = dateFormat.string(from: creatDate)
+        
+        newEasyNote.noteDate = nowdate
+        
+        newEasyNote.noteText = self.NoteTF.text!
+        
+        EasyNoteManager.easyNoteCoreData.insert(newEasyNote, at: 0)
+        
+        EasyNoteManager.shared.saveCoreData()
+        
+        self.delegate.addEasyNote()
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: func - 取消.
@@ -58,10 +102,12 @@ class AddNewNoteViewController: UIViewController {
 
 /*----------------------------------- UICollectionViewDataSource -----------------------------------*/
 extension AddNewNoteViewController :UICollectionViewDataSource {
+    
     //MARK: Protocol - numberOfItemsInSection.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return EasyNoteManager.groudListCoreData.count
     }
+    
     //MARK: Protocol - cellForItemAt.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let groupListCell = self.groupListCV.dequeueReusableCell(withReuseIdentifier: "GroupListCell", for: indexPath) as! AddNewNoteCollectionViewCell
@@ -76,11 +122,15 @@ extension AddNewNoteViewController :UICollectionViewDataSource {
 
 /*----------------------------------- UICollectionViewDelegate -----------------------------------*/
 extension AddNewNoteViewController :UICollectionViewDelegate {
+    
     //MARK: Protocol - didDeselectItemAt.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 變更 NoteTF backgroundColor.
         self.groupListColorView.layer.borderWidth = 100000.0
         self.groupListColorView.layer.borderColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
+        
+        self.newEasyNoteGroupID = EasyNoteManager.groudListCoreData[indexPath.row].groupID!
+        self.newEasyNoteGroupColor = EasyNoteManager.groudListCoreData[indexPath.row].groupColor!
         
         // 檢查是否有old cell亮起邊框.
         if self.oldColorIndexPath != nil {
@@ -99,5 +149,14 @@ extension AddNewNoteViewController :UICollectionViewDelegate {
         selectCell.backView.layer.borderWidth = 1.0
         selectCell.backView.layer.borderColor = UIColor.black.cgColor
         self.oldColorIndexPath = indexPath
+    }
+}
+
+extension AddNewNoteViewController :UITextViewDelegate {
+    //MARK: Protocol - textFiel Delegate.
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.NoteTF.text = ""
+        self.NoteTF.textColor = UIColor.black
+        return true
     }
 }

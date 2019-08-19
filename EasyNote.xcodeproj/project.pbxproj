@@ -10,6 +10,9 @@
 		AF8BCB0E7A00D8D72050758C /* Pods_EasyNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C10D9C927E30A825CBD5C2 /* Pods_EasyNote.framework */; };
 		CE0F7FC62303E06500F23066 /* AddNewNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FC52303E06500F23066 /* AddNewNoteCollectionViewCell.swift */; };
 		CE0F7FCA2303EAAB00F23066 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */; };
+		CE0F7FCE23040CDE00F23066 /* EasyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FCD23040CDE00F23066 /* EasyNote.swift */; };
+		CE0F7FD12304FCC500F23066 /* EasyNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FD02304FCC500F23066 /* EasyNoteCollectionViewCell.swift */; };
+		CE0F7FD42309654400F23066 /* EditEasyNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FD32309654400F23066 /* EditEasyNoteViewController.swift */; };
 		CE1EE7E02301B64600A7BAF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1EE7DE2301B64600A7BAF3 /* LaunchScreen.storyboard */; };
 		CE1EE7EA2301B70000A7BAF3 /* GroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7E92301B70000A7BAF3 /* GroupList.swift */; };
 		CE1EE7ED2301B72700A7BAF3 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1EE7EC2301B72700A7BAF3 /* CoreDataHelper.swift */; };
@@ -29,6 +32,9 @@
 		06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyNote.release.xcconfig"; path = "Target Support Files/Pods-EasyNote/Pods-EasyNote.release.xcconfig"; sourceTree = "<group>"; };
 		CE0F7FC52303E06500F23066 /* AddNewNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		CE0F7FCD23040CDE00F23066 /* EasyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyNote.swift; sourceTree = "<group>"; };
+		CE0F7FD02304FCC500F23066 /* EasyNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyNoteCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE0F7FD32309654400F23066 /* EditEasyNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEasyNoteViewController.swift; sourceTree = "<group>"; };
 		CE1EE7D22301B64500A7BAF3 /* EasyNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1EE7DF2301B64600A7BAF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE1EE7E12301B64600A7BAF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +91,40 @@
 			path = "Custom-Cell";
 			sourceTree = "<group>";
 		};
+		CE0F7FCB23040CA300F23066 /* Add-Note */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */,
+				CE0F7FCC23040CCD00F23066 /* Object */,
+				CE0F7FC42303E03B00F23066 /* Custom-Cell */,
+			);
+			path = "Add-Note";
+			sourceTree = "<group>";
+		};
+		CE0F7FCC23040CCD00F23066 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F7FCD23040CDE00F23066 /* EasyNote.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		CE0F7FCF2304FCAC00F23066 /* Custom-Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F7FD02304FCC500F23066 /* EasyNoteCollectionViewCell.swift */,
+			);
+			path = "Custom-Cell";
+			sourceTree = "<group>";
+		};
+		CE0F7FD22309651A00F23066 /* Edit-Note */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F7FD32309654400F23066 /* EditEasyNoteViewController.swift */,
+			);
+			path = "Edit-Note";
+			sourceTree = "<group>";
+		};
 		CE1EE7C92301B64500A7BAF3 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +152,8 @@
 				CE1EE7F72301B7B800A7BAF3 /* Manager */,
 				CE1EE7EB2301B71400A7BAF3 /* Core-Data */,
 				CE1EE7FA2301B7C100A7BAF3 /* Easy-Note */,
+				CE0F7FD22309651A00F23066 /* Edit-Note */,
+				CE0F7FCB23040CA300F23066 /* Add-Note */,
 				CE1EE7E72301B6E400A7BAF3 /* Group-List */,
 				CE1EE8022301B7E700A7BAF3 /* Add-New-Group */,
 				CE1EE7DE2301B64600A7BAF3 /* LaunchScreen.storyboard */,
@@ -159,8 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1EE7FB2301B7C100A7BAF3 /* EasyNoteViewController.swift */,
-				CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */,
-				CE0F7FC42303E03B00F23066 /* Custom-Cell */,
+				CE0F7FCF2304FCAC00F23066 /* Custom-Cell */,
 			);
 			path = "Easy-Note";
 			sourceTree = "<group>";
@@ -312,16 +353,19 @@
 			files = (
 				CE1EE7F42301B7AC00A7BAF3 /* AppDelegate.swift in Sources */,
 				CE1EE7FE2301B7D000A7BAF3 /* GroupListViewController.swift in Sources */,
+				CE0F7FCE23040CDE00F23066 /* EasyNote.swift in Sources */,
 				CE1EE7EA2301B70000A7BAF3 /* GroupList.swift in Sources */,
 				CE1EE8012301B7D700A7BAF3 /* GroupListTableViewCell.swift in Sources */,
 				CE1EE7FC2301B7C100A7BAF3 /* EasyNoteViewController.swift in Sources */,
 				CE0F7FC62303E06500F23066 /* AddNewNoteCollectionViewCell.swift in Sources */,
 				CE1EE7ED2301B72700A7BAF3 /* CoreDataHelper.swift in Sources */,
+				CE0F7FD12304FCC500F23066 /* EasyNoteCollectionViewCell.swift in Sources */,
 				CE1EE7F02301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld in Sources */,
 				CE1EE8062301B7E700A7BAF3 /* GroupColorCollectionViewCell.swift in Sources */,
 				CE0F7FCA2303EAAB00F23066 /* AddNewNoteViewController.swift in Sources */,
 				CE1EE7F92301B7B800A7BAF3 /* EasyNoteManager.swift in Sources */,
 				CE1EE8072301B7E700A7BAF3 /* AddNewGroupViewController.swift in Sources */,
+				CE0F7FD42309654400F23066 /* EditEasyNoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

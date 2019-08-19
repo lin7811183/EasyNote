@@ -1,13 +1,9 @@
-//
-//  EasyNoteCollectionViewCell.swift
-//  EasyNote
-//
-//  Created by 林易興 on 2019/8/15.
-//  Copyright © 2019 林易興. All rights reserved.
-//
-
 import UIKit
 
 class EasyNoteCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var groupView: UIView!
+    @IBOutlet weak var noteDateLB: UILabel!
+    @IBOutlet weak var noteTF: UITextView!
 }

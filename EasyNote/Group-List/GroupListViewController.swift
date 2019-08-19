@@ -5,7 +5,7 @@ class GroupListViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        EasyNoteManager.shared.queryCoreData()
+        EasyNoteManager.shared.queryCoreData(entityName: "GroupList")
         
         // 檢查是不是第一次使用APP，若是產生預設 ; 若不是撈取CoreData資料
         guard EasyNoteManager.groudListCoreData.count != 0 else {
