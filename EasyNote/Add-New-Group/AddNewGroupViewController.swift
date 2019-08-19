@@ -26,7 +26,7 @@ class AddNewGroupViewController: UIViewController {
         self.groupColorCV.delegate = self
     }
     
-    /*-------------------------------------------------- Functions --------------------------------------------------*/
+    /*----------------------------------- Functions. -----------------------------------*/
     
     //MARK: func - Add New Group List.
     @IBAction func addNewGroupList(_ sender: UIButton) {

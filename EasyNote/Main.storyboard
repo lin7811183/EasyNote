@@ -183,7 +183,7 @@
                                             <constraint firstAttribute="width" constant="200" id="YNV-co-GE7"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="ObJ-5B-egd" kind="embed" id="8d1-yi-bSh"/>
+                                            <segue destination="ObJ-5B-egd" kind="embed" identifier="GroupList" id="8d1-yi-bSh"/>
                                         </connections>
                                     </containerView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aVt-qa-5hw">
@@ -337,14 +337,14 @@
                                 </constraints>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem title="新便便貼" id="MpR-r1-NLX">
+                                    <navigationItem title="新便小抄" id="MpR-r1-NLX">
                                         <barButtonItem key="leftBarButtonItem" title="取消" id="lfl-bA-RfL">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="canel:" destination="c9Z-Fs-RUC" id="Onb-Ep-BFp"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="確定" id="flF-hA-yxd">
+                                        <barButtonItem key="rightBarButtonItem" title="新增" id="flF-hA-yxd">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="ok:" destination="c9Z-Fs-RUC" id="mRj-GN-50W"/>
@@ -643,7 +643,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfd-rV-mfE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2458" y="34"/>
+            <point key="canvasLocation" x="2501" y="34"/>
         </scene>
         <!--Add New Group View Controller-->
         <scene sceneID="MwH-YY-Gw1">

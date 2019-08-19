@@ -30,7 +30,7 @@ class EditEasyNoteViewController: UIViewController {
 
         self.groupColorView.layer.borderWidth = 1000000.0
         
-        let data = EasyNoteManager.easyNoteCoreData[indexPath.row]
+        let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
         
         self.groupColorView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
 
@@ -43,9 +43,9 @@ class EditEasyNoteViewController: UIViewController {
     
     //MARK: func - Delete Note.
     @IBAction func deleteNote(_ sender: UIBarButtonItem) {
-        // Delete easyNoteCoreData data.
-        let deleteData = EasyNoteManager.easyNoteCoreData[self.getIndexPath.row]
-        EasyNoteManager.easyNoteCoreData.remove(at: self.getIndexPath.row)
+        // Delete easyIsSelectNoteCoreData data.
+        let deleteData = EasyNoteManager.easyIsSelectNoteCoreData[self.getIndexPath.row]
+        EasyNoteManager.easyIsSelectNoteCoreData.remove(at: self.getIndexPath.row)
         // Delete coredaa.
         EasyNoteManager.moc.delete(deleteData)
         EasyNoteManager.shared.saveCoreData()
@@ -57,8 +57,8 @@ class EditEasyNoteViewController: UIViewController {
     
     //MARK: func - Save Note.
     @IBAction func saveNote(_ sender: UIBarButtonItem) {
-        // Save easyNoteCoreData data.
-        EasyNoteManager.easyNoteCoreData[self.getIndexPath.row].noteText = self.noteTF.text!
+        // Save easyIsSelectNoteCoreData data.
+        EasyNoteManager.easyIsSelectNoteCoreData[self.getIndexPath.row].noteText = self.noteTF.text!
         // Save CoreData.
         EasyNoteManager.shared.saveCoreData()
         

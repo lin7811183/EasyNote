@@ -1,11 +1,16 @@
 import UIKit
 
+protocol GroupListViewControllerDelegate {
+    func lockGroup()
+}
+
 class GroupListViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        EasyNoteManager.shared.queryCoreData(entityName: "GroupList")
+        //EasyNoteManager.shared.queryCoreData(entityName: "GroupList")
+        EasyNoteManager.shared.queryGroupListCoreData()
         
         // 檢查是不是第一次使用APP，若是產生預設 ; 若不是撈取CoreData資料
         guard EasyNoteManager.groudListCoreData.count != 0 else {
@@ -32,6 +37,8 @@ class GroupListViewController: UIViewController {
     
     var isAddNewGroup :Bool = false
     var changeGroupListNameIndexPath :IndexPath!
+    
+    var delegate :GroupListViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,12 +121,26 @@ extension GroupListViewController :UITableViewDelegate {
             
             EasyNoteManager.groudListCoreData[indexPath.row].isSelect = true
             EasyNoteManager.shared.saveCoreData()
+            
+            // 重新搜尋 coreData.
+            EasyNoteManager.easyIsSelectNoteCoreData.removeAll()
+            //EasyNoteManager.shared.queryCoreData(entityName: "GroupList")
+            EasyNoteManager.shared.queryIsSelectGroupListCoreData()
+            
+            self.delegate.lockGroup()
         } else {
             selectGroupListCell.isSelectImage.image = UIImage(named: "")
             selectGroupListCell.isSelect = false
             
             EasyNoteManager.groudListCoreData[indexPath.row].isSelect = false
             EasyNoteManager.shared.saveCoreData()
+            
+            // 重新搜尋 coreData.
+            EasyNoteManager.easyIsSelectNoteCoreData.removeAll()
+            //EasyNoteManager.shared.queryCoreData(entityName: "GroupList")
+            EasyNoteManager.shared.queryIsSelectGroupListCoreData()
+            
+            self.delegate.lockGroup()
         }
         
     }
@@ -163,7 +184,7 @@ extension GroupListViewController :AddNewGroupViewControllerDelegate {
         newGroupList.groupID = UUID().uuidString
         newGroupList.groupColor = groupColor
         newGroupList.groupName = groupName
-        newGroupList.isSelect = false
+        newGroupList.isSelect = true
         
         EasyNoteManager.groudListCoreData.append(newGroupList)
         

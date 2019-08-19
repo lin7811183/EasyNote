@@ -5,7 +5,10 @@ class EasyNoteViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        EasyNoteManager.shared.queryCoreData(entityName: "EasyNote")
+        //EasyNoteManager.shared.queryCoreData(entityName: "EasyNote")
+        EasyNoteManager.SelectGroupDelegate = self
+        EasyNoteManager.shared.queryIsSelectGroupListCoreData()
+        
     }
     
     @IBOutlet weak var easyNoteSV: UIScrollView!
@@ -62,6 +65,9 @@ class EasyNoteViewController: UIViewController {
             editEasyNoteVC.getIndexPath = self.pushNoteIndexPath
             
             editEasyNoteVC.delegate = self
+        } else if segue.identifier == "GroupList" {
+            let GroupListVC = segue.destination as! GroupListViewController
+            GroupListVC.delegate = self
         }
     }
 }
@@ -71,7 +77,7 @@ extension EasyNoteViewController :UICollectionViewDataSource {
     
     //MARK: Protocol - numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return EasyNoteManager.easyNoteCoreData.count
+        return EasyNoteManager.easyIsSelectNoteCoreData.count
     }
     
     //MARK: Protocol - cellForItemAt
@@ -81,12 +87,14 @@ extension EasyNoteViewController :UICollectionViewDataSource {
         easyNoteCell.backView.layer.borderWidth = 1.0
         easyNoteCell.backView.layer.borderColor = UIColor.lightGray.cgColor
         
+        let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
+        
         easyNoteCell.groupView.layer.borderWidth = 100000.0
-        easyNoteCell.groupView.layer.borderColor = UIColor(named: EasyNoteManager.easyNoteCoreData[indexPath.row].groupColor!)?.cgColor
+        easyNoteCell.groupView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
         
-        easyNoteCell.noteDateLB.text = EasyNoteManager.easyNoteCoreData[indexPath.row].noteDate
+        easyNoteCell.noteDateLB.text = data.noteDate
         
-        easyNoteCell.noteTF.text = EasyNoteManager.easyNoteCoreData[indexPath.row].noteText
+        easyNoteCell.noteTF.text = data.noteText
         easyNoteCell.noteTF.isSelectable = false
         easyNoteCell.noteTF.isEditable = false
         
@@ -133,6 +141,30 @@ extension EasyNoteViewController :AddNewNoteViewControllerDelegate {
 /*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
 extension EasyNoteViewController :EditEasyNoteViewControllerDelegate {
     func updateEasyNote() {
+        self.noteCV.reloadData()
+    }
+}
+
+/*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
+extension EasyNoteViewController :EasyNoteManagerGroupListSelectDelegate {
+    //MARK: Protocol - 讀取選取的GroupID.
+    func selectGroupID() {
+        for data in EasyNoteManager.groudIsSelectListCoreData {
+            if let id = data.groupID {
+                EasyNoteManager.shared.queryEasyNoteCoreData(groupIDs: id)
+            }
+        }
+    }
+    //MARK: Protocol - 讀取完成後，更新CV.
+    func updateSelectGroupID() {
+        self.noteCV.reloadData()
+    }
+}
+
+/*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
+extension EasyNoteViewController :GroupListViewControllerDelegate {
+    //MARK: Protocol - 鎖定群組後，更新CV.
+    func lockGroup() {
         self.noteCV.reloadData()
     }
 }

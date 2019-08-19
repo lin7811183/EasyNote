@@ -69,7 +69,7 @@ class AddNewNoteViewController: UIViewController {
         
         newEasyNote.noteText = self.NoteTF.text!
         
-        EasyNoteManager.easyNoteCoreData.insert(newEasyNote, at: 0)
+        EasyNoteManager.easyIsSelectNoteCoreData.insert(newEasyNote, at: 0)
         
         EasyNoteManager.shared.saveCoreData()
         

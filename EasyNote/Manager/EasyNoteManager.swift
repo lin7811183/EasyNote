@@ -6,16 +6,26 @@ protocol EasyNoteManagerGroupListDelegate {
     func updateGroupListName(groupListName :String)
 }
 
+protocol EasyNoteManagerGroupListSelectDelegate {
+    func selectGroupID()
+    func updateSelectGroupID()
+}
+
 class EasyNoteManager {
     
     static let shared = EasyNoteManager()
     
     static var groudListCoreData = [GroupList]()
+    static var groudIsSelectListCoreData = [GroupList]()
+    static var isSelectGroupID = [String]()
+    
     static var easyNoteCoreData = [EasyNote]()
+    static var easyIsSelectNoteCoreData = [EasyNote]()
     
     static let moc = CoreDataHelper.shared.managedObjectContext()
     
     static var GroupListDelegate :EasyNoteManagerGroupListDelegate!
+    static var SelectGroupDelegate :EasyNoteManagerGroupListSelectDelegate!
     
     /*----------------------------------- Functions. -----------------------------------*/
     
@@ -33,8 +43,7 @@ class EasyNoteManager {
             //performAndWait.
             moc.performAndWait {
                 do {
-                    EasyNoteManager.easyNoteCoreData = try moc.fetch(query)
-
+                    EasyNoteManager.easyIsSelectNoteCoreData = try moc.fetch(query)
                 } catch {
                     print("core Data query erro \(error)")
                     EasyNoteManager.groudListCoreData = []
@@ -42,19 +51,73 @@ class EasyNoteManager {
             }
         } else if entityName == "GroupList" {
             let query = NSFetchRequest<GroupList>(entityName: entityName)
+            let isSelectquery = NSFetchRequest<GroupList>(entityName: entityName)
+            isSelectquery.predicate = NSPredicate(format: "isSelect == %@" , "1")
             //performAndWait.
             moc.performAndWait {
                 do {
                     EasyNoteManager.groudListCoreData = try moc.fetch(query)
+                    EasyNoteManager.groudIsSelectListCoreData = try moc.fetch(isSelectquery)
+                    
                 } catch {
                     print("core Data query erro \(error)")
                     EasyNoteManager.groudListCoreData = []
                 }
             }
         }
-        
     }
     
+    //MARK: func - Group List Query COreData.
+    func queryGroupListCoreData() {
+        let moc = CoreDataHelper.shared.managedObjectContext()
+        //Create quert
+        let query = NSFetchRequest<GroupList>(entityName: "GroupList")
+        //performAndWait.
+        moc.performAndWait {
+            do {
+                EasyNoteManager.groudListCoreData = try moc.fetch(query)
+            } catch {
+                print("core Data query erro \(error)")
+                EasyNoteManager.groudListCoreData = []
+            }
+        }
+    }
+    
+    //MARK: func - Select isSelect Group List.
+    func queryIsSelectGroupListCoreData() {
+        let moc = CoreDataHelper.shared.managedObjectContext()
+        let isSelectquery = NSFetchRequest<GroupList>(entityName: "GroupList")
+        isSelectquery.predicate = NSPredicate(format: "isSelect == %@" , "1")
+        //performAndWait.
+        moc.performAndWait {
+            do {
+                EasyNoteManager.groudIsSelectListCoreData = try moc.fetch(isSelectquery)
+                EasyNoteManager.SelectGroupDelegate.selectGroupID()
+            } catch {
+                print("core Data query erro \(error)")
+                EasyNoteManager.groudIsSelectListCoreData = []
+            }
+        }
+    }
+    
+    //MARK: func - Easy Note Query COreData.
+    func queryEasyNoteCoreData(groupIDs :String) {
+        let moc = CoreDataHelper.shared.managedObjectContext()
+        //Create quert
+        let query = NSFetchRequest<EasyNote>(entityName: "EasyNote")
+        query.predicate = NSPredicate(format: "groupID == %@" , "\(groupIDs)")
+        //performAndWait.
+        moc.performAndWait {
+            do {
+                EasyNoteManager.easyNoteCoreData = try moc.fetch(query)
+                EasyNoteManager.easyIsSelectNoteCoreData += EasyNoteManager.easyNoteCoreData
+            } catch {
+                print("core Data query erro \(error)")
+                EasyNoteManager.groudListCoreData = []
+            }
+        }
+    }
+
     //MARK: func - UIAlert.
     func okAlert(vc: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message,preferredStyle: .alert)
