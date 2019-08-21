@@ -7,4 +7,5 @@ class EasyNote: NSManagedObject {
     @NSManaged var groupColor :String?
     @NSManaged var noteDate :String?
     @NSManaged var noteText :String?
+    var sortDate :Date?
 }

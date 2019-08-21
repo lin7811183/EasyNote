@@ -30,6 +30,8 @@ class GroupListViewController: UIViewController {
         
     }
 
+
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var groupListSC: UIScrollView!
     @IBOutlet weak var groupView: UIView!
     @IBOutlet weak var addNewGroupBT: UIButton!
@@ -45,7 +47,16 @@ class GroupListViewController: UIViewController {
         
         // 設定 groupView 邊框.
         self.groupView.layer.borderWidth = 1.0
-        self.groupView.layer.borderColor = UIColor.lightGray.cgColor
+        self.groupView.layer.borderColor = UIColor.black.cgColor
+        
+        //Pattern Image
+        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+            self.groupView.backgroundColor = bk//設定成背景色
+            self.mainView.backgroundColor = bk//設定成背景色
+            self.groupListTV.backgroundColor = bk
+            self.view.backgroundColor = bk
+        }
         
         // TableView Delegate.
         self.groupListTV.dataSource = self
@@ -89,9 +100,17 @@ extension GroupListViewController :UITableViewDataSource {
     //MARK: Protocol - cellForRowAt.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let groupListCell = self.groupListTV.dequeueReusableCell(withIdentifier: "GroupListCell", for: indexPath) as! GroupListTableViewCell
+        
         // 設定 groupColorView layer.
         groupListCell.groupColorView.layer.borderWidth = 100000.0
         groupListCell.groupColorView.layer.borderColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
+        
+        //Pattern Image
+        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+            groupListCell.mainView.backgroundColor = bk//設定成背景色
+        }
+        
         // 設定 groupNameLB text
         groupListCell.groupNameLB.text = EasyNoteManager.groudListCoreData[indexPath.row].groupName!
         
@@ -100,6 +119,8 @@ extension GroupListViewController :UITableViewDataSource {
         } else {
             groupListCell.isSelectImage.image = UIImage(named: "Group-List-Select-Icon")
         }
+        
+        groupListCell.selectionStyle = .none
         
         return groupListCell
     }

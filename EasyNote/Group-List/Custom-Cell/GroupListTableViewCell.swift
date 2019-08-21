@@ -3,6 +3,7 @@ import UIKit
 class GroupListTableViewCell: UITableViewCell {
     
     
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var groupColorView: UIView!
     @IBOutlet weak var groupNameLB: UILabel!
     @IBOutlet weak var isSelectImage: UIImageView!

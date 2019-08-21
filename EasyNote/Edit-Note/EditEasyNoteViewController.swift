@@ -6,6 +6,7 @@ protocol EditEasyNoteViewControllerDelegate {
 
 class EditEasyNoteViewController: UIViewController {
     
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var groupColorCV: UICollectionView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var groupColorView: UIView!
@@ -19,14 +20,28 @@ class EditEasyNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Pattern Image
+        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+            self.mainView.backgroundColor = bk//設定成背景色
+            self.view.backgroundColor = bk//設定成背景色
+            self.blackView.backgroundColor = UIColor.white
+            self.groupColorCV.backgroundColor = bk
+        }
+        
+        //陰影
+        self.blackView.layer.shadowColor = UIColor.darkGray.cgColor
+        self.blackView.layer.shadowOpacity = 0.5 //透明度
+        self.blackView.layer.shadowOffset = CGSize(width: 10, height: 10)
+        
         // 設定選取便便貼.
         guard let indexPath = self.getIndexPath else {
             print("Error : self.getIndexPath error.")
             return
         }
         
-        self.blackView.layer.borderWidth = 1.0
-        self.blackView.layer.borderColor = UIColor.lightGray.cgColor
+//        self.blackView.layer.borderWidth = 1.0
+//        self.blackView.layer.borderColor = UIColor.black.cgColor
 
         self.groupColorView.layer.borderWidth = 1000000.0
         

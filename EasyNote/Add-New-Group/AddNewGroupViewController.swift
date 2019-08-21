@@ -22,6 +22,14 @@ class AddNewGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Pattern Image
+        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+            self.groupColorCV.backgroundColor = bk//設定成背景色
+            self.view.backgroundColor = bk
+        }
+        
+        // groupColorCV  delegate.
         self.groupColorCV.dataSource = self
         self.groupColorCV.delegate = self
     }

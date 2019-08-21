@@ -111,13 +111,33 @@ class EasyNoteManager {
             do {
                 EasyNoteManager.easyNoteCoreData = try moc.fetch(query)
                 EasyNoteManager.easyIsSelectNoteCoreData += EasyNoteManager.easyNoteCoreData
+                EasyNoteManager.shared.easyNoteDateSort(easyNote: EasyNoteManager.easyIsSelectNoteCoreData)
             } catch {
                 print("core Data query erro \(error)")
                 EasyNoteManager.groudListCoreData = []
             }
         }
     }
-
+    
+    //MARK: func - 小抄時間排序
+    func easyNoteDateSort(easyNote :[EasyNote]) {
+        // 轉換時間
+        for i in 0 ..< easyNote.count {
+            print("run : \(i)")
+            let data = easyNote
+            if let dateString = data[i].noteDate {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let date = dateFormatter.date(from: dateString)
+                EasyNoteManager.easyIsSelectNoteCoreData[i].sortDate = date
+            }
+        }
+        EasyNoteManager.easyIsSelectNoteCoreData = EasyNoteManager.easyIsSelectNoteCoreData.sorted(by: { $0.sortDate!.compare($1.sortDate!) == .orderedDescending
+        })
+        print("\(EasyNoteManager.easyIsSelectNoteCoreData)")
+    }
+    
+    
     //MARK: func - UIAlert.
     func okAlert(vc: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message,preferredStyle: .alert)
