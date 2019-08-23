@@ -5,8 +5,7 @@ class EasyNoteViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        //EasyNoteManager.shared.queryCoreData(entityName: "EasyNote")
-        EasyNoteManager.SelectGroupDelegate = self
+        EasyNoteManager.selectGroupDelegate = self
         EasyNoteManager.shared.queryIsSelectGroupListCoreData()
         
     }
@@ -123,8 +122,6 @@ extension EasyNoteViewController :UICollectionViewDataSource {
         
         return easyNoteCell
     }
-    
-    
 }
 
 /*----------------------------------- UICollectionViewDelegate -----------------------------------*/
@@ -169,7 +166,7 @@ extension EasyNoteViewController :EditEasyNoteViewControllerDelegate {
     }
 }
 
-/*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
+/*----------------------------------- EasyNoteManagerGroupListSelectDelegate -----------------------------------*/
 extension EasyNoteViewController :EasyNoteManagerGroupListSelectDelegate {
     //MARK: Protocol - 讀取選取的GroupID.
     func selectGroupID() {
@@ -187,6 +184,10 @@ extension EasyNoteViewController :EasyNoteManagerGroupListSelectDelegate {
 
 /*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
 extension EasyNoteViewController :GroupListViewControllerDelegate {
+    //MARK: Protocol - 刪除群組後，更新CV.
+    func changeGroup() {
+        self.noteCV.reloadData()
+    }
     //MARK: Protocol - 鎖定群組後，更新CV.
     func lockGroup() {
         self.noteCV.reloadData()

@@ -11,6 +11,10 @@ protocol EasyNoteManagerGroupListSelectDelegate {
     func updateSelectGroupID()
 }
 
+protocol EasyNoteDeleteGroupListID {
+    func changeGroupID()
+}
+
 class EasyNoteManager {
     
     static let shared = EasyNoteManager()
@@ -21,50 +25,21 @@ class EasyNoteManager {
     
     static var easyNoteCoreData = [EasyNote]()
     static var easyIsSelectNoteCoreData = [EasyNote]()
+    static var changeGroupIdEasyNoteCoreData = [EasyNote]()
+    
+    static var deleteGroupListId :String!
     
     static let moc = CoreDataHelper.shared.managedObjectContext()
     
-    static var GroupListDelegate :EasyNoteManagerGroupListDelegate!
-    static var SelectGroupDelegate :EasyNoteManagerGroupListSelectDelegate!
+    static var groupListDelegate :EasyNoteManagerGroupListDelegate!
+    static var selectGroupDelegate :EasyNoteManagerGroupListSelectDelegate!
+    static var deleteGroupDelete :EasyNoteDeleteGroupListID!
     
     /*----------------------------------- Functions. -----------------------------------*/
     
     //MARK: func - Save CoreData.
     func saveCoreData() {
         CoreDataHelper.shared.saveContext()
-    }
-    
-    //MARK: func - Query COreData.
-    func queryCoreData(entityName :String) {
-        let moc = CoreDataHelper.shared.managedObjectContext()
-        //Create quert
-        if entityName == "EasyNote" {
-            let query = NSFetchRequest<EasyNote>(entityName: entityName)
-            //performAndWait.
-            moc.performAndWait {
-                do {
-                    EasyNoteManager.easyIsSelectNoteCoreData = try moc.fetch(query)
-                } catch {
-                    print("core Data query erro \(error)")
-                    EasyNoteManager.groudListCoreData = []
-                }
-            }
-        } else if entityName == "GroupList" {
-            let query = NSFetchRequest<GroupList>(entityName: entityName)
-            let isSelectquery = NSFetchRequest<GroupList>(entityName: entityName)
-            isSelectquery.predicate = NSPredicate(format: "isSelect == %@" , "1")
-            //performAndWait.
-            moc.performAndWait {
-                do {
-                    EasyNoteManager.groudListCoreData = try moc.fetch(query)
-                    EasyNoteManager.groudIsSelectListCoreData = try moc.fetch(isSelectquery)
-                    
-                } catch {
-                    print("core Data query erro \(error)")
-                    EasyNoteManager.groudListCoreData = []
-                }
-            }
-        }
     }
     
     //MARK: func - Group List Query COreData.
@@ -92,7 +67,7 @@ class EasyNoteManager {
         moc.performAndWait {
             do {
                 EasyNoteManager.groudIsSelectListCoreData = try moc.fetch(isSelectquery)
-                EasyNoteManager.SelectGroupDelegate.selectGroupID()
+                EasyNoteManager.selectGroupDelegate.selectGroupID()
             } catch {
                 print("core Data query erro \(error)")
                 EasyNoteManager.groudIsSelectListCoreData = []
@@ -100,7 +75,7 @@ class EasyNoteManager {
         }
     }
     
-    //MARK: func - Easy Note Query COreData.
+    //MARK: func - Easy Note Query CoreData.
     func queryEasyNoteCoreData(groupIDs :String) {
         let moc = CoreDataHelper.shared.managedObjectContext()
         //Create quert
@@ -115,15 +90,15 @@ class EasyNoteManager {
             } catch {
                 print("core Data query erro \(error)")
                 EasyNoteManager.groudListCoreData = []
+                EasyNoteManager.easyIsSelectNoteCoreData = []
             }
         }
     }
     
-    //MARK: func - 小抄時間排序
+    //MARK: func - easy note 時間排序.
     func easyNoteDateSort(easyNote :[EasyNote]) {
-        // 轉換時間
+        // 轉換時間.
         for i in 0 ..< easyNote.count {
-            print("run : \(i)")
             let data = easyNote
             if let dateString = data[i].noteDate {
                 let dateFormatter = DateFormatter()
@@ -132,11 +107,28 @@ class EasyNoteManager {
                 EasyNoteManager.easyIsSelectNoteCoreData[i].sortDate = date
             }
         }
+        // 排序每筆note時間.
         EasyNoteManager.easyIsSelectNoteCoreData = EasyNoteManager.easyIsSelectNoteCoreData.sorted(by: { $0.sortDate!.compare($1.sortDate!) == .orderedDescending
         })
-        print("\(EasyNoteManager.easyIsSelectNoteCoreData)")
     }
     
+    //MARK: func - delete group to Easy Note default groupid.
+    func deleteGroupIdToChangeEasyNoteDefaultID(deleteGroupID :String) {
+        let moc = CoreDataHelper.shared.managedObjectContext()
+        //Create quert
+        let query = NSFetchRequest<EasyNote>(entityName: "EasyNote")
+        query.predicate = NSPredicate(format: "groupID == %@" , "\(deleteGroupID)")
+        //performAndWait.
+        moc.performAndWait {
+            do {
+                EasyNoteManager.changeGroupIdEasyNoteCoreData = try moc.fetch(query)
+                EasyNoteManager.deleteGroupDelete.changeGroupID()
+            } catch {
+                print("core Data query erro \(error)")
+                EasyNoteManager.changeGroupIdEasyNoteCoreData = []
+            }
+        }
+    }
     
     //MARK: func - UIAlert.
     func okAlert(vc: UIViewController, title: String, message: String) {
@@ -153,7 +145,7 @@ class EasyNoteManager {
         }
         let okAction = UIAlertAction(title: "確認", style: .default) { (action) in
             if let newGroupListName = alert.textFields?[0] {
-                EasyNoteManager.GroupListDelegate.updateGroupListName(groupListName: newGroupListName.text!)
+                EasyNoteManager.groupListDelegate.updateGroupListName(groupListName: newGroupListName.text!)
             }
         }
         okAction.setValue(UIColor.black, forKey: "titleTextColor")

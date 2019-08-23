@@ -2,6 +2,7 @@ import UIKit
 
 protocol GroupListViewControllerDelegate {
     func lockGroup()
+    func changeGroup()
 }
 
 class GroupListViewController: UIViewController {
@@ -16,9 +17,9 @@ class GroupListViewController: UIViewController {
         guard EasyNoteManager.groudListCoreData.count != 0 else {
             print("第一次使用 Easy Note APP.")
             let defaultGroupList = GroupList(context: EasyNoteManager.moc)
-            defaultGroupList.groupID = UUID().uuidString
+            defaultGroupList.groupID = "Not-Group"
             defaultGroupList.groupColor = "Note-Group-Default"
-            defaultGroupList.groupName = "請輸入群組名稱...."
+            defaultGroupList.groupName = "未分類群組"
             defaultGroupList.isSelect = false
 
             EasyNoteManager.groudListCoreData.append(defaultGroupList)
@@ -46,21 +47,25 @@ class GroupListViewController: UIViewController {
         super.viewDidLoad()
         
         // 設定 groupView 邊框.
-        self.groupView.layer.borderWidth = 1.0
-        self.groupView.layer.borderColor = UIColor.black.cgColor
+        //self.groupView.layer.borderWidth = 1.0
+        //self.groupView.layer.borderColor = UIColor.black.cgColor
+        self.groupListTV.layer.borderWidth = 1.0
+        self.groupListTV.layer.borderColor = UIColor.black.cgColor
         
-        //Pattern Image
+        // Pattern Image
         if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
             let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            self.groupView.backgroundColor = bk//設定成背景色
-            self.mainView.backgroundColor = bk//設定成背景色
-            self.groupListTV.backgroundColor = bk
+            self.groupView.backgroundColor = bk //設定成背景色
+            self.mainView.backgroundColor = bk //設定成背景色
+            //self.groupListTV.backgroundColor = bk
             self.view.backgroundColor = bk
         }
         
         // TableView Delegate.
         self.groupListTV.dataSource = self
         self.groupListTV.delegate = self
+        
+        EasyNoteManager.deleteGroupDelete = self
     }
     
     //MARK: func - 新增 new group
@@ -106,10 +111,10 @@ extension GroupListViewController :UITableViewDataSource {
         groupListCell.groupColorView.layer.borderColor = UIColor(named: EasyNoteManager.groudListCoreData[indexPath.row].groupColor!)?.cgColor
         
         //Pattern Image
-        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            groupListCell.mainView.backgroundColor = bk//設定成背景色
-        }
+//        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+//            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+//            groupListCell.mainView.backgroundColor = bk//設定成背景色
+//        }
         
         // 設定 groupNameLB text
         groupListCell.groupNameLB.text = EasyNoteManager.groudListCoreData[indexPath.row].groupName!
@@ -131,11 +136,10 @@ extension GroupListViewController :UITableViewDelegate {
     
     //MARK: Protocol - didSelectRowAt.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 點選後，取消反灰.
-        self.groupListTV.deselectRow(at: indexPath, animated: true)
         // 點選後，看是否被選取.
         let selectGroupListCell = tableView.cellForRow(at: indexPath) as! GroupListTableViewCell
         let isSelect = EasyNoteManager.groudListCoreData[indexPath.row].isSelect
+        
         if isSelect == false {
             selectGroupListCell.isSelectImage.image = UIImage(named: "Group-List-Select-Icon")
             selectGroupListCell.isSelect = true
@@ -163,35 +167,56 @@ extension GroupListViewController :UITableViewDelegate {
             
             self.delegate.lockGroup()
         }
-        
     }
     
     //MARK: Protocol - editActionsForRowAt.
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        // 修改 Group List 名稱.
-        let changeGroupListNameAction = UITableViewRowAction(style: .default, title: "改名稱") { (action, indexPath) in
-            self.changeGroupListNameIndexPath = indexPath
-            EasyNoteManager.shared.textAlter(vc: self, title: "請輸入新的群組名稱", message: "")
-            EasyNoteManager.GroupListDelegate = self
-        }
-        changeGroupListNameAction.backgroundColor = UIColor.lightGray
+        let data = EasyNoteManager.groudListCoreData[indexPath.row]
         
-        // 刪除 Group List.
-        let deleteGroupListAction = UITableViewRowAction(style: .default, title: "刪除") { (action, indexPath) in
-            // 刪除 Group List 元素.
-            let deleteData = EasyNoteManager.groudListCoreData[indexPath.row]
-            EasyNoteManager.groudListCoreData.remove(at: indexPath.row)
-            // 刪除 Group List TablView.
-            self.groupListTV.deleteRows(at: [indexPath], with: .automatic)
-            self.groupListTV.reloadData()
-            // Core Data save.
-            EasyNoteManager.moc.delete(deleteData)
-            EasyNoteManager.shared.saveCoreData()
+        if data.groupID == "Not-Group" {
+            // 刪除 Group List.
+            let defaultAction = UITableViewRowAction(style: .normal, title: "刪除") { (action, indexPath) in
+                EasyNoteManager.shared.okAlert(vc: self, title: "未分類群組", message: "無法刪除")
+            }
+            defaultAction.backgroundColor = UIColor.red
+            
+            return [defaultAction]
+        } else {
+            // 修改 Group List 名稱.
+            let changeGroupListNameAction = UITableViewRowAction(style: .default, title: "改名稱") { (action, indexPath) in
+                self.changeGroupListNameIndexPath = indexPath
+                EasyNoteManager.shared.textAlter(vc: self, title: "請輸入新的群組名稱", message: "")
+                EasyNoteManager.groupListDelegate = self
+            }
+            changeGroupListNameAction.backgroundColor = UIColor.lightGray
+            
+            // 刪除 Group List.
+            let deleteGroupListAction = UITableViewRowAction(style: .default, title: "刪除") { (action, indexPath) in
+                // 刪除 Group List Id 前,將成員改成為未分類群組.
+                guard let id = data.groupID else {
+                    print("delete groupid error.")
+                    return
+                }
+                EasyNoteManager.shared.deleteGroupIdToChangeEasyNoteDefaultID(deleteGroupID: id)
+                
+                self.delegate.changeGroup()
+                
+                // 刪除 Group List 元素.
+                let deleteData = data
+                EasyNoteManager.groudListCoreData.remove(at: indexPath.row)
+                // 刪除 Group List TablView.
+                self.groupListTV.deleteRows(at: [indexPath], with: .automatic)
+                self.groupListTV.reloadData()
+                // Core Data save.
+                EasyNoteManager.moc.delete(deleteData)
+                EasyNoteManager.shared.saveCoreData()
+            }
+            deleteGroupListAction.backgroundColor = UIColor.red
+            
+            return [ deleteGroupListAction, changeGroupListNameAction ]
         }
-        deleteGroupListAction.backgroundColor = UIColor.red
-        
-        return [ deleteGroupListAction, changeGroupListNameAction ]
+        return nil
     }
 }
 
@@ -237,5 +262,18 @@ extension GroupListViewController :EasyNoteManagerGroupListDelegate {
         UIView.animate(withDuration: 1.0, animations: {
             self.addNewGroupBT.transform =  CGAffineTransform(rotationAngle: -(CGFloat.pi / 2) )
         })
+    }
+}
+
+/*----------------------------------- EasyNoteDeleteGroupListID -----------------------------------*/
+extension GroupListViewController :EasyNoteDeleteGroupListID {
+    // 更換group id.
+    func changeGroupID() {
+        for i in 0 ..< EasyNoteManager.changeGroupIdEasyNoteCoreData.count {
+            EasyNoteManager.changeGroupIdEasyNoteCoreData[i].groupID = "Not-Group"
+            EasyNoteManager.changeGroupIdEasyNoteCoreData[i].groupColor = "Note-Group-Default"
+        }
+        EasyNoteManager.shared.saveCoreData()
+        EasyNoteManager.changeGroupIdEasyNoteCoreData.removeAll()
     }
 }
