@@ -12,7 +12,7 @@ protocol EasyNoteManagerGroupListSelectDelegate {
 }
 
 protocol EasyNoteDeleteGroupListID {
-    func changeGroupID()
+    func deleteGroupID()
 }
 
 class EasyNoteManager {
@@ -25,7 +25,7 @@ class EasyNoteManager {
     
     static var easyNoteCoreData = [EasyNote]()
     static var easyIsSelectNoteCoreData = [EasyNote]()
-    static var changeGroupIdEasyNoteCoreData = [EasyNote]()
+    static var deleteGroupListAndEasyNoteCoreData = [EasyNote]()
     
     static var deleteGroupListId :String!
     
@@ -113,7 +113,7 @@ class EasyNoteManager {
     }
     
     //MARK: func - delete group to Easy Note default groupid.
-    func deleteGroupIdToChangeEasyNoteDefaultID(deleteGroupID :String) {
+    func deleteGroupListAndEasyNote(deleteGroupID :String) {
         let moc = CoreDataHelper.shared.managedObjectContext()
         //Create quert
         let query = NSFetchRequest<EasyNote>(entityName: "EasyNote")
@@ -121,11 +121,11 @@ class EasyNoteManager {
         //performAndWait.
         moc.performAndWait {
             do {
-                EasyNoteManager.changeGroupIdEasyNoteCoreData = try moc.fetch(query)
-                EasyNoteManager.deleteGroupDelete.changeGroupID()
+                EasyNoteManager.deleteGroupListAndEasyNoteCoreData = try moc.fetch(query)
+                EasyNoteManager.deleteGroupDelete.deleteGroupID()
             } catch {
                 print("core Data query erro \(error)")
-                EasyNoteManager.changeGroupIdEasyNoteCoreData = []
+                EasyNoteManager.deleteGroupListAndEasyNoteCoreData = []
             }
         }
     }

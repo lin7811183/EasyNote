@@ -2,7 +2,7 @@ import UIKit
 
 protocol GroupListViewControllerDelegate {
     func lockGroup()
-    func changeGroup()
+    func deleteGroup()
 }
 
 class GroupListViewController: UIViewController {
@@ -193,24 +193,37 @@ extension GroupListViewController :UITableViewDelegate {
             
             // 刪除 Group List.
             let deleteGroupListAction = UITableViewRowAction(style: .default, title: "刪除") { (action, indexPath) in
-                // 刪除 Group List Id 前,將成員改成為未分類群組.
-                guard let id = data.groupID else {
-                    print("delete groupid error.")
-                    return
-                }
-                EasyNoteManager.shared.deleteGroupIdToChangeEasyNoteDefaultID(deleteGroupID: id)
+                // 刪除群組前，詢問使用者是否同意.
+                let alert = UIAlertController(title: "刪除分類群組", message: "刪除群組，也會將分類小抄一併刪除",preferredStyle: .alert)
+
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                alert.addAction(cancelAction)
                 
-                self.delegate.changeGroup()
+                let okAction = UIAlertAction(title: "確定", style: .default, handler: { (action) in
+                    // 刪除 Group List Id 前,將成員改成為未分類群組.
+                    guard let id = data.groupID else {
+                        print("delete groupid error.")
+                        return
+                    }
+                    EasyNoteManager.shared.deleteGroupListAndEasyNote(deleteGroupID: id)
+                    
+                    // 刪除 Group List 元素.
+                    let deleteData = data
+                    EasyNoteManager.groudListCoreData.remove(at: indexPath.row)
+                    
+                    // 刪除 Group List TablView.
+                    self.groupListTV.deleteRows(at: [indexPath], with: .automatic)
+                    self.groupListTV.reloadData()
+                    
+                    // Core Data save.
+                    EasyNoteManager.moc.delete(deleteData)
+                    EasyNoteManager.shared.saveCoreData()
+                    
+                    self.delegate.deleteGroup()
+                })
+                alert.addAction(okAction)
                 
-                // 刪除 Group List 元素.
-                let deleteData = data
-                EasyNoteManager.groudListCoreData.remove(at: indexPath.row)
-                // 刪除 Group List TablView.
-                self.groupListTV.deleteRows(at: [indexPath], with: .automatic)
-                self.groupListTV.reloadData()
-                // Core Data save.
-                EasyNoteManager.moc.delete(deleteData)
-                EasyNoteManager.shared.saveCoreData()
+                self.present(alert, animated: true, completion: nil)
             }
             deleteGroupListAction.backgroundColor = UIColor.red
             
@@ -268,12 +281,18 @@ extension GroupListViewController :EasyNoteManagerGroupListDelegate {
 /*----------------------------------- EasyNoteDeleteGroupListID -----------------------------------*/
 extension GroupListViewController :EasyNoteDeleteGroupListID {
     // 更換group id.
-    func changeGroupID() {
-        for i in 0 ..< EasyNoteManager.changeGroupIdEasyNoteCoreData.count {
-            EasyNoteManager.changeGroupIdEasyNoteCoreData[i].groupID = "Not-Group"
-            EasyNoteManager.changeGroupIdEasyNoteCoreData[i].groupColor = "Note-Group-Default"
+    func deleteGroupID(){
+        for i in 0 ..< EasyNoteManager.deleteGroupListAndEasyNoteCoreData.count {
+            let deleteData = EasyNoteManager.deleteGroupListAndEasyNoteCoreData[i]
+            EasyNoteManager.moc.delete(deleteData)
+            EasyNoteManager.shared.saveCoreData()
         }
-        EasyNoteManager.shared.saveCoreData()
-        EasyNoteManager.changeGroupIdEasyNoteCoreData.removeAll()
+        // 刪除完成後，初始化.
+        EasyNoteManager.deleteGroupListAndEasyNoteCoreData = []
+        EasyNoteManager.easyNoteCoreData = []
+        EasyNoteManager.easyIsSelectNoteCoreData = []
+        
+        // 重新撈取.
+        EasyNoteManager.shared.queryIsSelectGroupListCoreData()
     }
 }

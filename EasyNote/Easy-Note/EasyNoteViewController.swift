@@ -176,6 +176,7 @@ extension EasyNoteViewController :EasyNoteManagerGroupListSelectDelegate {
             }
         }
     }
+    
     //MARK: Protocol - 讀取完成後，更新CV.
     func updateSelectGroupID() {
         self.noteCV.reloadData()
@@ -185,9 +186,10 @@ extension EasyNoteViewController :EasyNoteManagerGroupListSelectDelegate {
 /*----------------------------------- EditEasyNoteViewControllerDelegate -----------------------------------*/
 extension EasyNoteViewController :GroupListViewControllerDelegate {
     //MARK: Protocol - 刪除群組後，更新CV.
-    func changeGroup() {
+    func deleteGroup() {
         self.noteCV.reloadData()
     }
+    
     //MARK: Protocol - 鎖定群組後，更新CV.
     func lockGroup() {
         self.noteCV.reloadData()
