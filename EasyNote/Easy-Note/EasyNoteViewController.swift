@@ -7,12 +7,12 @@ class EasyNoteViewController: UIViewController {
         
         EasyNoteManager.selectGroupDelegate = self
         EasyNoteManager.shared.queryIsSelectGroupListCoreData()
-        
     }
     
     @IBOutlet weak var easyNoteSV: UIScrollView!
     @IBOutlet weak var groupListBT: UIBarButtonItem!
     @IBOutlet weak var noteCV: UICollectionView!
+    @IBOutlet weak var changeShowMode: UIBarButtonItem!
     
     @IBOutlet weak var openGroupList: NSLayoutConstraint!
     @IBOutlet weak var clossGroupList: NSLayoutConstraint!
@@ -20,6 +20,13 @@ class EasyNoteViewController: UIViewController {
     var isOpenGroupList :Bool = false
     
     var pushNoteIndexPath :IndexPath!
+    
+    /*
+     0 : 正方形
+     1 : 長方形
+     */
+    var easyNoteShowMode :Int! = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +52,19 @@ class EasyNoteViewController: UIViewController {
         // noteCV delegate.
         self.noteCV.dataSource = self
         self.noteCV.delegate = self
+    }
+    
+    //MARK: func - 更換 Easy Note cell顯示.
+    @IBAction func changeShowMode(_ sender: UIBarButtonItem) {
+        if self.easyNoteShowMode == 0 {
+            self.easyNoteShowMode = 1
+            self.changeShowMode.image = UIImage(named: "Show-rectangle-Icon")
+            self.noteCV.reloadData()
+        } else if self.easyNoteShowMode == 1 {
+            self.easyNoteShowMode = 0
+            self.changeShowMode.image = UIImage(named: "Show-Square-Icon")
+            self.noteCV.reloadData()
+        }
     }
     
     //MARK: func - 展開 Group List.
@@ -93,35 +113,54 @@ extension EasyNoteViewController :UICollectionViewDataSource {
     
     //MARK: Protocol - cellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let easyNoteCell = self.noteCV.dequeueReusableCell(withReuseIdentifier: "EasyNoteCell", for: indexPath) as! EasyNoteCollectionViewCell
         
-        //easyNoteCell.backView.layer.borderWidth = 1.0
-        //easyNoteCell.backView.layer.borderColor = UIColor.black.cgColor
-        //陰影
-        easyNoteCell.backView.layer.shadowColor = UIColor.darkGray.cgColor
-        easyNoteCell.backView.layer.shadowOpacity = 0.5 //透明度
-        easyNoteCell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        
-        //Pattern Image
-        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            easyNoteCell.backgroundColor = bk
-            easyNoteCell.mainView.backgroundColor = bk
+        if self.easyNoteShowMode == 0 {
+            let easyNoteCell = self.noteCV.dequeueReusableCell(withReuseIdentifier: "EasyNoteCell1", for: indexPath) as! EasyNoteCollectionViewCell
+            
+            //easyNoteCell.backView.layer.borderWidth = 1.0
+            //easyNoteCell.backView.layer.borderColor = UIColor.black.cgColor
+            //陰影
+            easyNoteCell.backView.layer.shadowColor = UIColor.darkGray.cgColor
+            easyNoteCell.backView.layer.shadowOpacity = 0.5 //透明度
+            easyNoteCell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
+            
+            //Pattern Image
+            if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+                let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+                easyNoteCell.backgroundColor = bk
+                easyNoteCell.mainView.backgroundColor = bk
+            }
+            
+            let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
+            
+            easyNoteCell.groupView.layer.borderWidth = 100000.0
+            easyNoteCell.groupView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
+            
+            easyNoteCell.noteDateLB.text = data.noteDate
+            
+            easyNoteCell.noteTF.text = data.noteText
+            easyNoteCell.noteTF.isSelectable = false
+            easyNoteCell.noteTF.isEditable = false
+            
+            return easyNoteCell
+        } else {
+            let easyNoteCell = self.noteCV.dequeueReusableCell(withReuseIdentifier: "EasyNoteCell2", for: indexPath) as! EasyNoteCollectionViewCell
+    
+            let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
+            
+            easyNoteCell.groupView.layer.borderWidth = 100000.0
+            easyNoteCell.groupView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
+            
+            easyNoteCell.noteDateLB.text = data.noteDate
+            
+            easyNoteCell.noteTF.text = data.noteText
+            easyNoteCell.noteTF.isSelectable = false
+            easyNoteCell.noteTF.isEditable = false
+            
+            return easyNoteCell
         }
-        
-        let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
-        
-        easyNoteCell.groupView.layer.borderWidth = 100000.0
-        easyNoteCell.groupView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
-        
-        easyNoteCell.noteDateLB.text = data.noteDate
-        
-        easyNoteCell.noteTF.text = data.noteText
-        easyNoteCell.noteTF.isSelectable = false
-        easyNoteCell.noteTF.isEditable = false
-        
-        return easyNoteCell
     }
+
 }
 
 /*----------------------------------- UICollectionViewDelegate -----------------------------------*/
@@ -138,16 +177,29 @@ extension EasyNoteViewController :UICollectionViewDelegate {
 extension EasyNoteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellSize = CGSize(width: self.noteCV.bounds.size.width / 2, height: self.noteCV.bounds.size.width / 2)
-        return cellSize
+        if self.easyNoteShowMode == 0 {
+            let cellSize = CGSize(width: self.noteCV.bounds.size.width / 2, height: self.noteCV.bounds.size.width / 2)
+            return cellSize
+        } else {
+            let cellSize = CGSize(width: self.noteCV.bounds.size.width - 10, height: self.noteCV.bounds.size.width / 3)
+            return cellSize
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        if self.easyNoteShowMode == 0 {
+            return 0.0
+        } else {
+            return 10.0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layoutcollectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        if self.easyNoteShowMode == 0 {
+            return 0.0
+        } else {
+            return 10.0
+        }
     }
 }
 
