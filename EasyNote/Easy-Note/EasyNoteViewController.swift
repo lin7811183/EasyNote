@@ -27,21 +27,24 @@ class EasyNoteViewController: UIViewController {
      */
     var easyNoteShowMode :Int! = 0
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Pattern Image
-        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            self.noteCV.backgroundColor = bk//設定成背景色
-            
-            self.navigationController?.navigationBar.barTintColor = bk
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            
-            self.view.backgroundColor = bk
-        }
+//        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+//            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+//            self.noteCV.backgroundColor = bk//設定成背景色
+//
+//            self.navigationController?.navigationBar.barTintColor = bk
+//            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//            self.navigationController?.navigationBar.shadowImage = UIImage()
+//
+//            self.view.backgroundColor = bk
+//        }
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.view.backgroundColor = UIColor(named: "Back-Ground-Color")
         
         // 設定groupListCV Layer 間距.
         let layout = self.noteCV.collectionViewLayout as! UICollectionViewFlowLayout
@@ -78,7 +81,6 @@ class EasyNoteViewController: UIViewController {
             self.easyNoteSV.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             self.groupListBT.tintColor = UIColor.black
             self.isOpenGroupList = false
-            
         }
     }
     
@@ -121,21 +123,19 @@ extension EasyNoteViewController :UICollectionViewDataSource {
             //easyNoteCell.backView.layer.borderColor = UIColor.black.cgColor
             //陰影
             easyNoteCell.backView.layer.shadowColor = UIColor.darkGray.cgColor
-            easyNoteCell.backView.layer.shadowOpacity = 0.5 //透明度
+            easyNoteCell.backView.layer.shadowOpacity = 0.2 //透明度
             easyNoteCell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
             
             //Pattern Image
-            if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-                let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-                easyNoteCell.backgroundColor = bk
-                easyNoteCell.mainView.backgroundColor = bk
-            }
+//            if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+//                let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+//                easyNoteCell.backgroundColor = bk
+//                easyNoteCell.mainView.backgroundColor = bk
+//            }
             
             let data = EasyNoteManager.easyIsSelectNoteCoreData[indexPath.row]
             
-            easyNoteCell.groupView.layer.borderWidth = 100000.0
-            easyNoteCell.groupView.layer.borderColor = UIColor(named: data.groupColor!)?.cgColor
-            
+            easyNoteCell.noteDateLB.backgroundColor = UIColor(named: data.groupColor!)
             easyNoteCell.noteDateLB.text = data.noteDate
             
             easyNoteCell.noteTF.text = data.noteText

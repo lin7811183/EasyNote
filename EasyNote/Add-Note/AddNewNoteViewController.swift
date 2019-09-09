@@ -12,6 +12,7 @@ class AddNewNoteViewController: UIViewController {
     @IBOutlet weak var NoteTF: UITextView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var groupListColorView: UIView!
+    @IBOutlet weak var addNewEasyNoteTarBar: UINavigationBar!
     
     var oldColorIndexPath :IndexPath!
     
@@ -35,14 +36,17 @@ class AddNewNoteViewController: UIViewController {
         self.groupListColorView.layer.borderColor = UIColor.lightGray.cgColor
         
         //Pattern Image
-        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            self.view.backgroundColor = bk//設定成背景色
-            self.addEasyNoteTB.barTintColor = bk//設定成背景色
-            self.mainView.backgroundColor = bk//設定成背景色
-            self.groupListCV.backgroundColor = bk//設定成背景色
-            self.view.backgroundColor = bk
-        }
+//        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+//            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+//            self.view.backgroundColor = bk//設定成背景色
+//            self.addEasyNoteTB.barTintColor = bk//設定成背景色
+//            self.mainView.backgroundColor = bk//設定成背景色
+//            self.groupListCV.backgroundColor = bk//設定成背景色
+//            self.view.backgroundColor = bk
+//        }
+        self.view.backgroundColor = UIColor(named: "Back-Ground-Color")
+        
+        self.addNewEasyNoteTarBar.barTintColor = UIColor(named: "Back-Ground-Color")
         
         // 設定groupListCV Layer 間距.
         let layout = self.groupListCV.collectionViewLayout as! UICollectionViewFlowLayout
@@ -79,7 +83,7 @@ class AddNewNoteViewController: UIViewController {
         let dateFormat :DateFormatter = DateFormatter()
         dateFormat.locale = Locale(identifier: "zh_Hant_TW") // 設定地區(台灣)
         dateFormat.timeZone = TimeZone(identifier: "Asia/Taipei") // 設定時區(台灣)
-        dateFormat.dateFormat = "yyyy-MM-dd HH:mm"
+        dateFormat.dateFormat = "yy-MM-dd HH:mm"
         let nowdate = dateFormat.string(from: creatDate)
         
         newEasyNote.noteDate = nowdate

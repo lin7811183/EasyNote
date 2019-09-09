@@ -102,7 +102,7 @@ class EasyNoteManager {
             let data = easyNote
             if let dateString = data[i].noteDate {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                dateFormatter.dateFormat = "yyyy.MM.dd HH:mm"
                 let date = dateFormatter.date(from: dateString)
                 EasyNoteManager.easyIsSelectNoteCoreData[i].sortDate = date
             }

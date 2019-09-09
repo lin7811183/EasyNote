@@ -53,13 +53,15 @@ class GroupListViewController: UIViewController {
         self.groupListTV.layer.borderColor = UIColor.black.cgColor
         
         // Pattern Image
-        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
-            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
-            self.groupView.backgroundColor = bk //設定成背景色
-            self.mainView.backgroundColor = bk //設定成背景色
-            //self.groupListTV.backgroundColor = bk
-            self.view.backgroundColor = bk
-        }
+//        if let pattern = UIImage(named: "App-Back-Grond-Icon") { //加入背景圖
+//            let bk = UIColor(patternImage: pattern) //把背景圖變成顏色
+//            self.groupView.backgroundColor = bk //設定成背景色
+//            self.mainView.backgroundColor = bk //設定成背景色
+//            //self.groupListTV.backgroundColor = bk
+//            self.view.backgroundColor = bk
+//        }
+        self.view.backgroundColor = UIColor(named: "Back-Ground-Color")
+        self.groupListTV.separatorColor = .black
         
         // TableView Delegate.
         self.groupListTV.dataSource = self
