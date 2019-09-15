@@ -153,9 +153,11 @@ extension EasyNoteViewController :UICollectionViewDataSource {
             
             easyNoteCell.noteDateLB.text = data.noteDate
             
-            easyNoteCell.noteTF.text = data.noteText
-            easyNoteCell.noteTF.isSelectable = false
-            easyNoteCell.noteTF.isEditable = false
+//            easyNoteCell.noteTF.text = data.noteText
+//            easyNoteCell.noteTF.isSelectable = false
+//            easyNoteCell.noteTF.isEditable = false
+            
+            easyNoteCell.noteLB.text = data.noteText
             
             return easyNoteCell
         }

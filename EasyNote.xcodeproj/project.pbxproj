@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AF8BCB0E7A00D8D72050758C /* Pods_EasyNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C10D9C927E30A825CBD5C2 /* Pods_EasyNote.framework */; };
+		CE062F57232E1889005F5863 /* GroupListColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062F56232E1889005F5863 /* GroupListColor.swift */; };
+		CE062F5B232E1FC8005F5863 /* EasyNoteNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062F5A232E1FC8005F5863 /* EasyNoteNavigationViewController.swift */; };
+		CE062F5E232E205C005F5863 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062F5D232E205C005F5863 /* PresentationViewController.swift */; };
 		CE0F7FC62303E06500F23066 /* AddNewNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FC52303E06500F23066 /* AddNewNoteCollectionViewCell.swift */; };
 		CE0F7FCA2303EAAB00F23066 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */; };
 		CE0F7FCE23040CDE00F23066 /* EasyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F7FCD23040CDE00F23066 /* EasyNote.swift */; };
@@ -30,6 +33,9 @@
 
 /* Begin PBXFileReference section */
 		06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyNote.release.xcconfig"; path = "Target Support Files/Pods-EasyNote/Pods-EasyNote.release.xcconfig"; sourceTree = "<group>"; };
+		CE062F56232E1889005F5863 /* GroupListColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListColor.swift; sourceTree = "<group>"; };
+		CE062F5A232E1FC8005F5863 /* EasyNoteNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyNoteNavigationViewController.swift; sourceTree = "<group>"; };
+		CE062F5D232E205C005F5863 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		CE0F7FC52303E06500F23066 /* AddNewNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE0F7FC92303EAAB00F23066 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
 		CE0F7FCD23040CDE00F23066 /* EasyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyNote.swift; sourceTree = "<group>"; };
@@ -81,6 +87,22 @@
 				06DF383E872D8C573C226FA3 /* Pods-EasyNote.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CE062F55232E186E005F5863 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				CE062F56232E1889005F5863 /* GroupListColor.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		CE062F5C232E2046005F5863 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CE062F5D232E205C005F5863 /* PresentationViewController.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		CE0F7FC42303E03B00F23066 /* Custom-Cell */ = {
@@ -151,6 +173,7 @@
 				CE1EE7F22301B7AC00A7BAF3 /* Assets.xcassets */,
 				CE1EE7F72301B7B800A7BAF3 /* Manager */,
 				CE1EE7EB2301B71400A7BAF3 /* Core-Data */,
+				CE062F5C232E2046005F5863 /* Presentation */,
 				CE1EE7FA2301B7C100A7BAF3 /* Easy-Note */,
 				CE0F7FD22309651A00F23066 /* Edit-Note */,
 				CE0F7FCB23040CA300F23066 /* Add-Note */,
@@ -193,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1EE7F82301B7B800A7BAF3 /* EasyNoteManager.swift */,
+				CE062F5A232E1FC8005F5863 /* EasyNoteNavigationViewController.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -218,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1EE8052301B7E700A7BAF3 /* AddNewGroupViewController.swift */,
+				CE062F55232E186E005F5863 /* Object */,
 				CE1EE8032301B7E700A7BAF3 /* Custom-Cell */,
 			);
 			path = "Add-New-Group";
@@ -355,9 +380,12 @@
 				CE1EE7FE2301B7D000A7BAF3 /* GroupListViewController.swift in Sources */,
 				CE0F7FCE23040CDE00F23066 /* EasyNote.swift in Sources */,
 				CE1EE7EA2301B70000A7BAF3 /* GroupList.swift in Sources */,
+				CE062F5E232E205C005F5863 /* PresentationViewController.swift in Sources */,
 				CE1EE8012301B7D700A7BAF3 /* GroupListTableViewCell.swift in Sources */,
 				CE1EE7FC2301B7C100A7BAF3 /* EasyNoteViewController.swift in Sources */,
 				CE0F7FC62303E06500F23066 /* AddNewNoteCollectionViewCell.swift in Sources */,
+				CE062F5B232E1FC8005F5863 /* EasyNoteNavigationViewController.swift in Sources */,
+				CE062F57232E1889005F5863 /* GroupListColor.swift in Sources */,
 				CE1EE7ED2301B72700A7BAF3 /* CoreDataHelper.swift in Sources */,
 				CE0F7FD12304FCC500F23066 /* EasyNoteCollectionViewCell.swift in Sources */,
 				CE1EE7F02301B73F00A7BAF3 /* EasyNoteModel.xcdatamodeld in Sources */,
@@ -511,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ej.www.EasyNote.EasyNote2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ej.www.EasyNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -530,7 +558,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ej.www.EasyNote.EasyNote2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ej.www.EasyNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

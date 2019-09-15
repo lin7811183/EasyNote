@@ -9,9 +9,7 @@ class AddNewGroupViewController: UIViewController {
     @IBOutlet weak var groupColorCV: UICollectionView!
     @IBOutlet weak var groupListNameTF: UITextField!
     
-    var groupColorArray = [
-    "Note-Group-1","Note-Group-2","Note-Group-3","Note-Group-4","Note-Group-5","Note-Group-6","Note-Group-7","Note-Group-8","Note-Group-9","Note-Group-10"
-    ]
+    var groupColorArray = GrupoListColor.shared.outPutColor()
     
     var oldUseCellColorIndexRow :IndexPath!
     var useGroupName :String!
